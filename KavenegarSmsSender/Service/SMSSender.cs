@@ -1,6 +1,8 @@
-﻿namespace KavenegarSmsSender.Service
+﻿using KavenegarSmsSender.Interface;
+
+namespace KavenegarSmsSender.Service
 {
-    public class SMSSender
+    public class SMSSender : ISMSSender
     {
     }
 }
