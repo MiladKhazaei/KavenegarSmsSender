@@ -2,9 +2,11 @@
 
 ![AspNetCore](https://img.shields.io/badge/AspNetCore-5C2D91?style=flat&logo=dotnet)
 ![Security](https://img.shields.io/badge/Security-Cryptography-blue)
+![Kavenegar](https://img.shields.io/badge/Kavenegar-SMS-red)
 
 ## Overview
 
+![Send SMS](./images/SendKavenegarSMS.gif)
 Many developers frequently encounter challenges when configuring and deploying reliable SMS notification systems for end-users. This repository demonstrates a secure, enterprise-grade implementation of the `KavenegarAPI` within an ASP.NET Core environment. It facilitates both standard (public) messaging and pattern-based SMS (such as OTP verification) with a strict adherence to clean architecture and observability.
 
 ## Architectural & Security Highlights
