@@ -1,25 +1,61 @@
-using KavenegarSmsSender.Models;
+using KavenegarSmsSender.Interface;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace KavenegarSmsSender.Controllers
 {
-    public class SendSmsController : Controller
+    public class SendSmsController(ISMSSender _SmsSender) : Controller
     {
-        public IActionResult Index()
+        public IActionResult MainView()
         {
             return View();
         }
-
-        public IActionResult Privacy()
+        private readonly string SecureOTP = SecureRandomNumber();
+        public async Task<IActionResult> SendPublic()
         {
-            return View();
+            // In real app, phone number comes from the authenticated usee's profile (user.PhoneNumber)
+            var phoneNumber = "01234567890";
+            // The message that you want to send to the end-user
+            var message = "Test Message"; 
+            try
+            {
+                await _SmsSender.SendPublic(phoneNumber, message);
+                TempData["SuccessMessage"] = "پیام با موفقیت ارسال شد.";
+                return Redirect("/");
+            }
+            catch (Exception ex)
+            {
+                // You could redirect to specific page
+                TempData["ErrorMessage"] = "Error Sending SMS...";
+                return Redirect("/");
+            }
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> SendByPattern()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            // In real app, phone number comes from the authenticated usee's profile (user.PhoneNumber)
+            var phoneNumber = "01234567890";
+            // Generate OTP code
+            var secureOTP = SecureRandomNumber();
+            try
+            {
+                await _SmsSender.SendByPattern(phoneNumber, "PatternName", SecureOTP, "token2", "token3");
+                TempData["SuccessMessage"] = "Message Sends Successfully!";
+                return Redirect("/");
+            }
+            catch (Exception ex)
+            {
+                // You could redirect to specific page
+                TempData["ErrorMessage"] = "Error Sending SMS...";
+                return Redirect("/");
+            }
+        }
+
+        private static string SecureRandomNumber()
+        {
+            // Return 5 Random Number Into HexString like 5AC3F
+            int secureNumber = RandomNumberGenerator.GetInt32(0, 100000);
+            return secureNumber.ToString("D5");
         }
     }
 }

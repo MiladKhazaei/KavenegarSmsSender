@@ -1,7 +1,16 @@
-var builder = WebApplication.CreateBuilder(args);
+using KavenegarSmsSender.Controllers;
+using KavenegarSmsSender.Interface;
+using KavenegarSmsSender.Models;
+using KavenegarSmsSender.Service;
 
+var builder = WebApplication.CreateBuilder(args);
+//var rngName = SendSmsController.RandomNumberGenerate();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Config our service
+builder.Services.Configure<KavenegarSettings>(builder.Configuration.GetSection("KavenegarApi"));
+builder.Services.AddScoped<ISMSSender, SMSSender>();
 
 var app = builder.Build();
 
@@ -22,7 +31,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=SendSms}/{action=MainView}/{id?}")
     .WithStaticAssets();
 
 

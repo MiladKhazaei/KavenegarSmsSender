@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Main Page";
+}
+
+@* <h1>MainView</h1> *@
+
+<div class="container">
+    <div class="col-12 justify-content-between" style="padding-top:36px;">
+        <a class="btn bg-info col-4" asp-controller="SendSms" asp-action="SendPublic">
+            Send Public SMS
+        </a>
+        <a class="btn bg-light col-4" asp-controller="SendSms" asp-action="SendByPattern">
+            Send By Pattern
+        </a>
+    </div>
+</div>
