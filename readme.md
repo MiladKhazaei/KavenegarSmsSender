@@ -26,7 +26,7 @@ Many developers frequently encounter challenges when configuring and deploying r
 4.  **Configuration Model:** Defined a `KavenegarSettings` class strictly for mapping infrastructure credentials.
 5.  **Environment Setup:** Inject the required variables into your `appsettings.json` (ensure this file is excluded from public source control):
     ```json
-    "KavenegarSettings": {
+    "KavenegarApi": {
       "ApiKey": "YOUR_KAVENEGAR_API_KEY_HERE",
       "Sender": "YOUR_SENDER_LINE_HERE" // e.g., 2000660110
     }
